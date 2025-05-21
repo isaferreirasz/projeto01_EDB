@@ -1,7 +1,6 @@
 
-
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef SALAO_H
+#define SALAO_H
 
 #include <stdio.h>
 #include <stdlib.h>
