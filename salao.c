@@ -7,6 +7,11 @@ void adicionarPedidoSalao(No **salao, const char *prato, int item) {
     strcpy(novo->prato, prato);
     novo->proximo = *salao;
     *salao = novo;
+
+    if(novo == NULL) {
+        printf("Erro ao alocar memória!\n");
+        return;
+    }
 }
 
 void removerInicio(No **salao){

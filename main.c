@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "salao.h"
 
 const char *cardapio[] = {
@@ -28,7 +29,6 @@ void menu() {
 
 int main() {
     No *salao = NULL;
-    No *cozinha = NULL;
     int opcao;
 
     do {
