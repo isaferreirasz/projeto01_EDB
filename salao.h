@@ -1,4 +1,3 @@
-
 #ifndef SALAO_H
 #define SALAO_H
 
@@ -6,15 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct no {
+typedef struct prato {
     int item;
-    char prato[60];
-    struct no *proximo;
-} No;
+    char nome[60];
+    struct prato *proximo;
+} Prato;
 
-void adicionarPedidoSalao(No **salao, const char *prato, int item);
-int removerFim(No **salao, int item);
-void listarPedidosSalao(No *salao);
-No* enviarPedidoCozinha(No **salao);
+typedef struct pedido {
+    int id;
+    Prato *pratos;
+    struct pedido *proximo;
+} Pedido;
+
+
+void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[]);
+void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[]);
+void removerPedido(Pedido *salao, int id, int item);
+void listarPedidos(Pedido *salao);
 
 #endif

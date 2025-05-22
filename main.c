@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "salao.h"
 
 const char *cardapio[] = {
     "Sopa de Cebola", "Salada Caesar", "Bruschetta", "Carpaccio de Carne", "Camarão ao Alho",
-    "Lasanha à Bolonhesa", "Filé Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau à Gomes de Sá", "Risoto de Cogumelos",
-    "Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
+"Lasanha à Bolonhesa", "Filé Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau à Gomes de Sá", "Risoto de Cogumelos",
+"Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
 };
 
 void listarCardapio() {
@@ -16,69 +17,101 @@ void listarCardapio() {
     for (int i = 10; i < 15; i++) printf("%2d. %s\n", i+1, cardapio[i]);
 }
 
-void menu() {
-    printf("\n==== GERENCIAMENTO DE PEDIDOS ====\n");
-    printf("1. Adicionar Pedido (Salão)\n");
-    printf("2. Remover Prato (Salão)\n");
-    printf("3. Processar Pedido (para Cozinha)\n");
-    printf("4. Listar Salão\n");
-    printf("5. Listar Cozinha\n");
-    printf("0. Sair\n");
-    printf("Digite a opção desejada: ");
-}
-
 int main() {
-    No *salao = NULL;
+
+    Pedido *salao = NULL;
+    
     int opcao;
 
     do {
-        menu();
+        printf("\n==== GERENCIAMENTO DE PEDIDOS ====\n");
+        printf("1. Adicionar pedido\n");
+        printf("2. Adicionar prato a um pedido\n");
+        printf("3. Remover prato de um pedido\n");
+        printf("4. Listar pedidos no salão\n");
+        printf("5. Enviar pedido para a cozinha\n");
+        printf("6. Listar Pedidos da Cozinha\n");
+        printf("0. Sair\n");
+        printf("Escolha: ");
         scanf("%d", &opcao);
-        getchar();
 
         switch (opcao) {
             case 1: {
                 listarCardapio();
-                int item;
-                printf("Digite o número do prato: ");
-                scanf("%d", &item);
-                getchar();
-                if (item < 1 || item > 15) {
-                    printf("Item inválido!\n");
+                int qtd;
+                printf("Quantos pratos deseja adicionar ao pedido? ");
+                scanf("%d", &qtd);
+
+                if (qtd <= 0) {
+                    printf("Quantidade inválida.\n");
                     break;
                 }
-                adicionarPedidoSalao(&salao, cardapio[item-1], item);
-                printf("Pedido adicionado.\n");
+
+                int itens[qtd];
+                int valido = 1;
+
+                for (int i = 0; i < qtd; i++) {
+                    printf("Digite o número do prato (1 a 15): ");
+                    scanf("%d", &itens[i]);
+                    if (itens[i] < 1 || itens[i] > 15) {
+                        printf("Prato inválido.\n");
+                        valido = 0;
+                        break;
+                    }
+                }
+
+                if (valido)
+                    adicionarPedido(&salao, qtd, itens, cardapio);
+
                 break;
             }
+
             case 2: {
-                int item;
-                printf("Digite o número do prato a remover: ");
+                int id, item;
+                printf("ID do pedido: ");
+                scanf("%d", &id);
+                printf("Número do novo prato: ");
                 scanf("%d", &item);
-                getchar();
-                if (removerFim(&salao, item))
-                    printf("Pedido removido.\n");
+
+                if (item >= 1 && item <= 15)
+                    adicionarPratoPedido(salao, id, item, cardapio);
                 else
-                    printf("Pedido não encontrado.\n");
+                    printf("Prato inválido.\n");
+
                 break;
             }
+
             case 3: {
-                No *pedido = enviarPedidoCozinha(&salao);
-                if (pedido== NULL) {
-                    printf("Nenhum pedido para processar.\n");
-                } 
+                int id, item;
+                printf("ID do pedido: ");
+                scanf("%d", &id);
+                printf("Número do prato a remover: ");
+                scanf("%d", &item);
+                removerPedido(salao, id, item);
+                break;
             }
-            case 4: 
-                listarPedidosSalao(salao); 
+
+            case 4:
+                listarPedidos(salao);
                 break;
-            case 5: 
-                printf("Cozinha");
-            case 0: 
-                printf("Encerrado.\n"); 
+
+            case 5: {
+                printf("partecozinha");
                 break;
-            default: 
+            }
+            case 6: {
+                printf("partecozinha");
+                break;
+            }
+
+            case 0:
+                printf("Encerrado.\n");
+                break;
+
+            default:
                 printf("Opção inválida.\n");
         }
+
     } while (opcao != 0);
 
     return 0;

@@ -1,74 +1,95 @@
-#include <stdio.h>
+
 #include "salao.h"
 
-void adicionarPedidoSalao(No **salao, const char *prato, int item) {
-    No *novo = malloc(sizeof(No));
-    novo->item = item;
-    strcpy(novo->prato, prato);
-    novo->proximo = *salao;
-    *salao = novo;
+int proximoID = 1;
 
-    if(novo == NULL) {
-        printf("Erro ao alocar memória!\n");
-        return;
-    }
+Prato* criarPrato(int item, const char *cardapio[]) {
+    Prato *novo = (Prato*)malloc(sizeof(Prato));
+    novo->item = item;
+    strcpy(novo->nome, cardapio[item - 1]);
+    novo->proximo = NULL;
+    return novo;
 }
 
-void removerInicio(No **salao){
-    if(*salao == NULL){
-      printf("A lista está vazia!\n");
-      return;
-    }
-  
-    No *temp = *salao;
-    *salao = (*salao)->proximo;
-    free(temp);
-  }
+void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[]) {
+    Pedido *novoPedido = (Pedido*)malloc(sizeof(Pedido));
+    novoPedido->id = proximoID++;
+    novoPedido->pratos = NULL;
+    novoPedido->proximo = NULL;
 
-int removerFim(No **salao, int item) {
-    if(*salao == NULL || (*salao)->proximo == NULL){
-        removerInicio(salao);
+    for (int i = 0; i < qtd; i++) {
+        Prato *novo = criarPrato(itens[i], cardapio);
+        novo->proximo = novoPedido->pratos;
+        novoPedido->pratos = novo;
+    }
+
+    novoPedido->proximo = *salao;
+    *salao = novoPedido;
+
+    printf("Pedido %d adicionado com %d prato(s).\n", novoPedido->id, qtd);
+}
+
+void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[]) {
+    while (salao && salao->id != id)
+        salao = salao->proximo;
+
+    if (salao == NULL) {
+        printf("Pedido %d não encontrado.\n", id);
         return;
-      }
-    
-      No *anterior = NULL;
-      No *atual = *salao;
-    
-      while(atual->proximo != NULL){
+    }
+
+    Prato *novo = criarPrato(item, cardapio);
+    novo->proximo = salao->pratos;
+    salao->pratos = novo;
+
+    printf("Prato adicionado ao pedido %d.\n", id);
+}
+
+void removerPedido(Pedido *salao, int id, int item) {
+    while (salao && salao->id != id)
+        salao = salao->proximo;
+
+    if (salao == NULL) {
+        printf("Pedido %d não encontrado.\n", id);
+        return;
+    }
+
+    Prato *atual = salao->pratos;
+    Prato *anterior = NULL;
+
+    while (atual && atual->item != item) {
         anterior = atual;
         atual = atual->proximo;
-      }
-    
-      anterior->proximo = NULL;
-    
-      free(atual);
-      return 1;
     }
 
-void listarPedidosSalao(No *salao) {
-    if(salao == NULL){
-      printf("Nenhum pedido no salão.\n");
-      return;
+    if (atual == NULL) {
+        printf("Prato %d não encontrado no pedido %d.\n", item, id);
+        return;
     }
-  
-    No *atual = salao;
-    
-    while(atual != NULL){
-        printf(" ==== Pedidos do Salão ==== \n ");
-            printf(" - Prato %d: %s\n", atual->item, salao->prato);
-            atual = atual->proximo;
 
-        
-    }
-    printf("\n");
-  }
-  
+    if (anterior)
+        anterior->proximo = atual->proximo;
+    else
+        salao->pratos = atual->proximo;
 
-No* enviarPedidoCozinha(No **salao) {
-    if (!*salao) return NULL;
-
-    No *pedido = *salao;
-    *salao = pedido->proximo;
-    pedido->proximo = NULL;
-    return pedido;
+    free(atual);
+    printf("Prato %d removido do pedido %d.\n", item, id);
 }
+
+void listarPedidos(Pedido *salao) {
+    if (salao == NULL) {
+        printf("Nenhum pedido no salão.\n");
+        return;
+    }
+
+    while (salao) {
+        printf("Pedido %d:\n", salao->id);
+        Prato *p = salao->pratos;
+        while (p) {
+            printf("  - [%d] %s\n", p->item, p->nome);
+            p = p->proximo;
+        }
+        salao = salao->proximo;
+    }
+}
+
