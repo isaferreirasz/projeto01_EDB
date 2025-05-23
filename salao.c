@@ -12,21 +12,28 @@ Prato* criarPrato(int item, const char *cardapio[]) {
 }
 
 void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[]) {
-    Pedido *novoPedido = (Pedido*)malloc(sizeof(Pedido));
-    novoPedido->id = proximoID++;
-    novoPedido->pratos = NULL;
-    novoPedido->proximo = NULL;
+  Pedido *novoPedido = (Pedido*)malloc(sizeof(Pedido));
+  novoPedido->id = proximoID++;
+  novoPedido->pratos = NULL;
+  novoPedido->proximo = NULL;
 
-    for (int i = 0; i < qtd; i++) {
-        Prato *novo = criarPrato(itens[i], cardapio);
-        novo->proximo = novoPedido->pratos;
-        novoPedido->pratos = novo;
-    }
+  for (int i = 0; i < qtd; i++) {
+    Prato *novo = criarPrato(itens[i], cardapio);
+    novo->proximo = novoPedido->pratos;
+    novoPedido->pratos = novo;
+  }
 
-    novoPedido->proximo = *salao;
+  if (*salao == NULL) {
     *salao = novoPedido;
+  } else {
+    Pedido *atual = *salao;
+    while (atual->proximo != NULL) {
+      atual = atual->proximo;
+    }
+    atual->proximo = novoPedido;
+  }
 
-    printf("Pedido %d adicionado com %d prato(s).\n", novoPedido->id, qtd);
+  printf("Pedido %d adicionado com %d prato(s).", novoPedido->id, qtd);
 }
 
 void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[]) {
