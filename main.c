@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "salao.h"
 
+//Vetor com poteiro responsável por armazenar os nomes dos pratos do cardápio
 const char *cardapio[] = {
     "Sopa de Cebola", "Salada Caesar", "Bruschetta", "Carpaccio de Carne", "Camarão ao Alho",
 "Lasanha à Bolonhesa", "Filé Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau à Gomes de Sá", "Risoto de Cogumelos",
 "Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
 };
 
+//Utilkizando o vetor implentamos a função, que usa uma estrutura de repetição para percorrer o vetor de moto a exibir os pratos em categorias
 void listarCardapio() {
     printf("\n=*=*= Cardápio =*=*=\n ==== Entradas ====\n");
     for (int i = 0; i < 5; i++) printf("%2d. %s\n", i+1, cardapio[i]);
@@ -19,10 +21,13 @@ void listarCardapio() {
 
 int main() {
 
+    //Iniciando a lista de pedido com NULL (vazia)
     Pedido *salao = NULL;
     
     int opcao;
 
+    /*Toda a estrutura do do while se utilizando do switch case foi implemntada para funcionar como um menu para o usuário, nela cada escolha
+    gera um "resultado" para quem usa, é uma implentação simples que chama as funçãoes anteriomente impletandas nos outros arquivos.c */
     do {
         printf("\n==== GERENCIAMENTO DE PEDIDOS ====\n");
         printf("1. Adicionar pedido\n");
@@ -32,7 +37,7 @@ int main() {
         printf("5. Enviar pedido para a cozinha\n");
         printf("6. Listar Pedidos da Cozinha\n");
         printf("0. Sair\n");
-        printf("Escolha: ");
+        printf("Escolha a acao que deseja realizar: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
