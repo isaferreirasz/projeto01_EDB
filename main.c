@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "salao.h"
+#include "cozinha.h"
 
 //Vetor com poteiro responsável por armazenar os nomes dos pratos do cardápio
 const char *cardapio[] = {
@@ -9,7 +10,7 @@ const char *cardapio[] = {
 "Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
 };
 
-//Utilkizando o vetor implentamos a função, que usa uma estrutura de repetição para percorrer o vetor de moto a exibir os pratos em categorias
+//Utilizando o vetor implentamos a função, que usa uma estrutura de repetição para percorrer o vetor de moto a exibir os pratos em categorias
 void listarCardapio() {
     printf("\n=*=*= Cardápio =*=*=\n ==== Entradas ====\n");
     for (int i = 0; i < 5; i++) printf("%2d. %s\n", i+1, cardapio[i]);
