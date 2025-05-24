@@ -20,5 +20,6 @@ void iniciaFila(Fila *f);
 bool filaEstaVazia(Fila *f);
 void adicionaPedidoCozinha(Fila *f, int idPedido);
 void listarPedidosCozinha(Fila *f);
+int removerPedidoPronto(Fila *f);
 
 #endif

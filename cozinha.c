@@ -47,3 +47,25 @@ void listarPedidosCozinha(Fila *f){
 
   printf("\n");
 }
+
+int removerPedidoPronto(Fila *f){
+  if(filaEstaVazia(f)){
+    printf("  => Não tem pedidos na cozinha!\n");
+    return -1;
+  }
+ 
+  PedidoCozinha *temp = f->inicio;
+
+  int valor = temp->idPedido;
+
+  f->inicio = f->inicio->proximo;
+
+  if(f->inicio == NULL)
+    f->fim = NULL;
+
+  free(temp);
+
+  printf("  => Pedido pronto saindo da cozinha: %d\n", valor);
+ 
+  return valor;
+}

@@ -39,6 +39,7 @@ int main() {
         printf("4. Listar pedidos no salão\n");
         printf("5. Enviar pedido para a cozinha\n");
         printf("6. Listar Pedidos da Cozinha\n");
+        printf("7. Verificar qual pedido está pronto\n");
         printf("0. Sair\n");
         printf("Escolha a acao que deseja realizar: ");
         scanf("%d", &opcao);
@@ -112,6 +113,10 @@ int main() {
             }
             case 6: {
                 listarPedidosCozinha(&filaCozinha);
+                break;
+            }
+            case 7: {
+                removerPedidoPronto(&filaCozinha);
                 break;
             }
 
