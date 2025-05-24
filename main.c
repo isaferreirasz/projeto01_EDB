@@ -24,6 +24,8 @@ int main() {
 
     //Iniciando a lista de pedido com NULL (vazia)
     Pedido *salao = NULL;
+    Fila filaCozinha;
+    iniciaFila(&filaCozinha); 
     
     int opcao;
 
@@ -102,7 +104,10 @@ int main() {
                 break;
 
             case 5: {
-                printf("partecozinha");
+             int idDoPedido;
+             printf("Digite o ID do pedido para enviar à cozinha: ");
+             scanf("%d", &idDoPedido);
+             adicionaPedidoCozinha(&filaCozinha, idDoPedido);
                 break;
             }
             case 6: {
