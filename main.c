@@ -111,7 +111,7 @@ int main() {
                 break;
             }
             case 6: {
-                printf("partecozinha");
+                listarPedidosCozinha(&filaCozinha);
                 break;
             }
 

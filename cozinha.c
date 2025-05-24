@@ -30,3 +30,20 @@ void adicionaPedidoCozinha(Fila *f, int idPedido){
     
   printf("  => Novo pedido processado: %d\n", idPedido);
 }
+
+void listarPedidosCozinha(Fila *f){
+  if(filaEstaVazia(f)){
+    printf("  => Não tem pedidos na cozinha!\n");
+    return;
+  }
+  
+  PedidoCozinha *temp = f->inicio;
+
+  printf("  => Pedidos na: ");
+  while(temp != NULL){
+    printf("%d ", temp->idPedido);
+    temp = temp->proximo;
+  }
+
+  printf("\n");
+}
