@@ -121,7 +121,7 @@ int main() {
                 break;
             }
             case 6: {
-                listarPedidosCozinha(&filaCozinha);
+                listarPedidosCozinha(&filaCozinha, cardapio);
                 break;
             }
             case 7: {

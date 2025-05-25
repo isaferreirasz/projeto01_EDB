@@ -21,11 +21,10 @@ void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao, const char
   novo_pedidoCozinha->pratos = NULL;
   novo_pedidoCozinha->proximo = NULL;
   
-   Prato *pratoAtual = pratosSalao;  // Começa no primeiro prato do pedido do salão
-   PratoPedido *ultimoPratoPedido = NULL;  // Para manter o fim da lista
+   Prato *pratoAtual = pratosSalao;  
+   PratoPedido *ultimoPratoPedido = NULL;  
     
     while (pratoAtual != NULL) {
-        // Aloca memória para cada prato na cozinha
         PratoPedido *novoPrato = (PratoPedido *)malloc(sizeof(PratoPedido));
         if (!novoPrato) {
             printf("  => Erro ao anotar pratos do pedido!\n");
@@ -46,37 +45,46 @@ void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao, const char
         pratoAtual = pratoAtual->proximo;  
     }
 
-  if(filaEstaVazia(f)){
-    f->inicio = novo_pedidoCozinha;
-  }else{
-    f->fim->proximo = novo_pedidoCozinha;
-  }
+      if(filaEstaVazia(f)){
+        f->inicio = novo_pedidoCozinha;
+        f->fim = novo_pedidoCozinha;
+      } else{
+        f->fim->proximo = novo_pedidoCozinha;
+        f->fim = novo_pedidoCozinha;
+      }
+        printf("\n=> Pedido %d adicionado à cozinha:\n", idPedido);
+          PratoPedido *pratoPedido = novo_pedidoCozinha->pratos;
+          while (pratoPedido != NULL) {
+              printf("  - [%d]: %s\n",pratoPedido -> item, cardapio[pratoPedido->item - 1]);
+              pratoPedido = pratoPedido->proximo;
+          }
+      }
 
-  f->fim = novo_pedidoCozinha;
-    
-   printf("\n=> Pedido %d adicionado à cozinha:\n", idPedido);
-    PratoPedido *pratoPedido = novo_pedidoCozinha->pratos;
-    while (pratoPedido != NULL) {
-        printf("  - [%d]: %s\n",pratoPedido -> item, cardapio[pratoPedido->item - 1]);
-        pratoPedido = pratoPedido->proximo;
+void listarPedidosCozinha(Fila *f, const char *cardapio[]) {
+    if(filaEstaVazia(f)) {
+        printf("  => Não há pedidos na cozinha!\n");
+        return;
     }
-}
+    
+    PedidoCozinha *pedidoAtual = f->inicio;  
+    int contador = 1;
+    
+    printf("\n=> Pedidos na cozinha:\n");
 
-void listarPedidosCozinha(Fila *f){
-  if(filaEstaVazia(f)){
-    printf("  => Não tem pedidos na cozinha!\n");
-    return;
-  }
-  
-  PedidoCozinha *temp = f->inicio;
+    while(pedidoAtual != NULL) {
+        printf("\n  %d. Pedido ID: %d\n", contador++, pedidoAtual->idPedido);
+        
+        PratoPedido *pratoAtual = pedidoAtual->pratos;  
 
-  printf("  => Pedidos na cozinha: ");
-  while(temp != NULL){
-    printf("%d ", temp->idPedido);
-    temp = temp->proximo;
-  }
-
-  printf("\n");
+        while(pratoAtual != NULL) {
+            printf("     - [%d] %s\n", 
+                  pratoAtual->item, 
+                  cardapio[pratoAtual->item - 1]);
+            pratoAtual = pratoAtual->proximo;
+        }
+        
+        pedidoAtual = pedidoAtual->proximo; 
+    }
 }
 
 int removerPedidoPronto(Fila *f){

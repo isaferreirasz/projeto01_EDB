@@ -9,10 +9,10 @@ typedef struct PratoPedido{
   struct PratoPedido *proximo;
 } PratoPedido;
 
-typedef struct pedidoCozinha{
+typedef struct PedidoCozinha{
   int idPedido;
   PratoPedido *pratos;
-  struct pedidoCozinha *proximo;
+  struct PedidoCozinha *proximo;
 }PedidoCozinha;
 
 typedef struct Fila{
@@ -24,7 +24,7 @@ typedef struct Fila{
 void iniciaFila(Fila *f);
 bool filaEstaVazia(Fila *f);
 void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao, const char *cardapio[]);
-void listarPedidosCozinha(Fila *f);
+void listarPedidosCozinha(Fila *f, const char *cardapio[]);
 int removerPedidoPronto(Fila *f);
 
 #endif
