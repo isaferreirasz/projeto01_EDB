@@ -81,12 +81,11 @@ int main() {
                 scanf("%d", &id);
                 printf("Número do novo prato: ");
                 scanf("%d", &item);
-
-                if (item >= 1 && item <= 15)
+                if (item >= 1 && item <= 15){
                     adicionarPratoPedido(salao, id, item, cardapio);
-                else
+                }else{
                     printf("Prato inválido.\n");
-
+                }
                 break;
             }
 
@@ -115,6 +114,7 @@ int main() {
     
                 if (pedidoNoSalao != NULL) {
                 adicionaPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos, cardapio);
+                removerPedidoLista(&salao, idPedido);
                 } else {
                      printf("Pedido %d não encontrado no salão!\n", idPedido);
                 }

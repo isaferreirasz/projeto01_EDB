@@ -37,6 +37,7 @@ void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[
 }
 
 void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[]) {
+ 
     while (salao && salao->id != id)
         salao = salao->proximo;
 
@@ -100,3 +101,44 @@ void listarPedidos(Pedido *salao) {
     }
 }
 
+void removerPedidoLista(Pedido **salao, int id) {
+    if (*salao == NULL) {
+        printf("Nenhum pedido no salão.\n");
+        return;
+    }
+
+    Pedido *atual = *salao;
+    Pedido *anterior = NULL;
+
+    //Essa estrutura de repetição vai fazer a buscar do id fornecido na lista do salao
+    while (atual && atual->id != id) {
+        anterior = atual;
+        atual = atual->proximo;
+    }
+
+    //Se caso o id fornecido nao estiver na lista do salao é o caso de que o pedido nao foi feito (nao existe no salao)
+    if (atual == NULL) {
+        printf("Pedido %d não encontrado.\n", id);
+        return;
+    }
+
+    //Nesse ponto vai ocorrer a remoção do pedido propriamente sendo considerado o caso do incio, meio e fim
+    if (anterior == NULL) {
+        *salao = atual->proximo; //salao como a cabeça do no (remocao no incio)
+    } else {
+        anterior->proximo = atual->proximo; //remocao no meio e fim da lista
+    }
+
+    /*Como da pedido tem uma lista de pratos, precisa-se remover (liberar memoria) para cada um, assim usamos um ponteiro auxiliar para percorrer a lista(p)
+    e outro para ir recebendo os pratos (temp) e ir liberando o espaço da memoria*/
+    Prato *p = atual->pratos;
+    while (p) {
+        Prato *temp = p;
+        p = p->proximo;
+        free(temp);
+    }
+
+    //Nesse ponto, como os pratos já foram liberados, fazemos a liberação do pedido
+    free(atual);
+    printf("Pedido %d removido do salão.\n", id);
+}

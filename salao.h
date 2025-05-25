@@ -30,5 +30,7 @@ void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[
 void removerPedido(Pedido *salao, int id, int item);
 //Função responsável por listas os pedidos que existem no sallão
 void listarPedidos(Pedido *salao);
+//Função responsável por remover pedidos da lista após esses terem sidos enviados para a cozinha
+void removerPedidoLista(Pedido **salao, int id);
 
 #endif
