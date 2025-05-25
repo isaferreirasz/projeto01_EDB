@@ -114,7 +114,7 @@ int main() {
                 }
     
                 if (pedidoNoSalao != NULL) {
-                adicionaPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos);
+                adicionaPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos, cardapio);
                 } else {
                      printf("Pedido %d não encontrado no salão!\n", idPedido);
                 }
