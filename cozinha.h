@@ -25,6 +25,6 @@ void iniciaFila(Fila *f);
 bool filaEstaVazia(Fila *f);
 void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao, const char *cardapio[]);
 void listarPedidosCozinha(Fila *f, const char *cardapio[]);
-int removerPedidoPronto(Fila *f);
+int removerPedidoPronto(Fila *f, const char *cardapio[]);
 
 #endif

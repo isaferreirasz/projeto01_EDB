@@ -125,7 +125,7 @@ int main() {
                 break;
             }
             case 7: {
-                removerPedidoPronto(&filaCozinha);
+                removerPedidoPronto(&filaCozinha, cardapio);
                 break;
             }
 
