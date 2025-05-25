@@ -4,9 +4,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+typedef struct PratoPedido{
+  int item;
+  struct PratoPedido *proximo;
+} PratoPedido;
+
 typedef struct pedidoCozinha{
   int idPedido;
-  Prato *pratos;
+  PratoPedido *pratos;
   struct pedidoCozinha *proximo;
 }PedidoCozinha;
 
@@ -18,7 +23,7 @@ typedef struct Fila{
 
 void iniciaFila(Fila *f);
 bool filaEstaVazia(Fila *f);
-void adicionaPedidoCozinha(Fila *f, int idPedido);
+void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao);
 void listarPedidosCozinha(Fila *f);
 int removerPedidoPronto(Fila *f);
 

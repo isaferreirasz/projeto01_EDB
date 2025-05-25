@@ -9,7 +9,7 @@ bool filaEstaVazia(Fila *f){
   return f->inicio == NULL;
 }
 
-void adicionaPedidoCozinha(Fila *f, int idPedido){
+void adicionaPedidoCozinha(Fila *f, int idPedido, Prato *pratosSalao){
   PedidoCozinha *novo_pedidoCozinha = (PedidoCozinha *)malloc(sizeof(PedidoCozinha));
 
   if(!novo_pedidoCozinha){
@@ -18,7 +18,32 @@ void adicionaPedidoCozinha(Fila *f, int idPedido){
   }
  
   novo_pedidoCozinha->idPedido = idPedido;
+  novo_pedidoCozinha->pratos = NULL;
   novo_pedidoCozinha->proximo = NULL;
+   Prato *pratoAtual = pratosSalao;  // Começa no primeiro prato do pedido do salão
+    PratoPedido *ultimoPratoPedido = NULL;  // Para manter o fim da lista
+    
+    while (pratoAtual != NULL) {
+        // Aloca memória para cada prato na cozinha
+        PratoPedido *novoPrato = (PratoPedido *)malloc(sizeof(PratoPedido));
+        if (!novoPrato) {
+            printf("  => Erro ao copiar pratos!\n");
+            break;
+        }
+        
+        novoPrato->item = pratoAtual->item;
+        novoPrato->proximo = NULL;
+        
+
+        if (novo_pedidoCozinha->pratos == NULL) {
+            novo_pedidoCozinha->pratos = novoPrato; 
+        } else {
+            ultimoPratoPedido->proximo = novoPrato; 
+        }
+        ultimoPratoPedido = novoPrato;  
+        
+        pratoAtual = pratoAtual->proximo;  
+    }
 
   if(filaEstaVazia(f)){
     f->inicio = novo_pedidoCozinha;

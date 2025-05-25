@@ -105,10 +105,19 @@ int main() {
                 break;
 
             case 5: {
-             int idDoPedido;
+             int idPedido;
              printf("Digite o ID do pedido para enviar à cozinha: ");
-             scanf("%d", &idDoPedido);
-             adicionaPedidoCozinha(&filaCozinha, idDoPedido);
+             scanf("%d", &idPedido);
+             Pedido *pedidoNoSalao = salao;
+                while (pedidoNoSalao != NULL && pedidoNoSalao->id != idPedido) {
+                     pedidoNoSalao = pedidoNoSalao->proximo;
+                }
+    
+                if (pedidoNoSalao != NULL) {
+                adicionaPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos);
+                } else {
+                     printf("Pedido %d não encontrado no salão!\n", idPedido);
+                }
                 break;
             }
             case 6: {
