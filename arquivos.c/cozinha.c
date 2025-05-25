@@ -1,4 +1,4 @@
-#include "cozinha.h"
+#include "../arquivos.h/cozinha.h"
 
 void iniciaFila(Fila *f){ //Função que inicializa a fila
   f->inicio = NULL; //Define que o início da fila está vazio

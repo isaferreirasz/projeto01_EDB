@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "salao.h"
-#include "cozinha.h"
+#include "../arquivos.h/salao.h"
+#include "../arquivos.h/cozinha.h"
 
 
 //Vetor com poteiro responsável por armazenar os nomes dos pratos do cardápio
