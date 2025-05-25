@@ -13,7 +13,7 @@ cozinha.o: cozinha.c cozinha.h
 	gcc -c cozinha.c
 
 test: main
-    ./main
+	./main
 
 clean:
 	rm -f main *.o 

@@ -4,16 +4,16 @@
 #include "cozinha.h"
 
 
-//Vetor com poteiro responsável por armazenar os nomes dos pratos do cardápio
+//Vetor com poteiro responsï¿½vel por armazenar os nomes dos pratos do cardï¿½pio
 const char *cardapio[] = {
     "Sopa de Cebola", "Salada Caesar", "Bruschetta", "Carpaccio de Carne", "Camarao ao Alho",
 "Lasanha a Bolonhesa", "File Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau a Gomes de Sa", "Risoto de Cogumelos",
 "Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
 };
 
-//Utilizando o vetor implentamos a função, que usa uma estrutura de repetição para percorrer o vetor de moto a exibir os pratos em categorias
+//Utilizando o vetor implentamos a funï¿½ï¿½o, que usa uma estrutura de repetiï¿½ï¿½o para percorrer o vetor de moto a exibir os pratos em categorias
 void listarCardapio() {
-    printf("\n=*=*= Cardápio =*=*=\n ==== Entradas ====\n");
+    printf("\n=*=*= Cardapio =*=*=\n ==== Entradas ====\n");
     for (int i = 0; i < 5; i++) printf("%2d. %s\n", i+1, cardapio[i]);
     printf("==== Pratos Principais ==== \n");
     for (int i = 5; i < 10; i++) printf("%2d. %s\n", i+1, cardapio[i]);
@@ -29,8 +29,8 @@ int main() {
     
     int opcao;
 
-    /*Toda a estrutura do do while se utilizando do switch case foi implemntada para funcionar como um menu para o usuário, nela cada escolha
-    gera um "resultado" para quem usa, é uma implentação simples que chama as funçãoes anteriomente impletandas nos outros arquivos.c */
+    /*Toda a estrutura do do while se utilizando do switch case foi implemntada para funcionar como um menu para o usuï¿½rio, nela cada escolha
+    gera um "resultado" para quem usa, ï¿½ uma implentaï¿½ï¿½o simples que chama as funï¿½ï¿½oes anteriomente impletandas nos outros arquivos.c */
     do {
         printf("\n==== GERENCIAMENTO DE PEDIDOS ====\n");
         printf("1. Adicionar pedido\n");
@@ -134,7 +134,7 @@ int main() {
                 break;
 
             default:
-                printf("Opção invalida.\n");
+                printf("Opï¿½ï¿½o invalida.\n");
         }
 
     } while (opcao != 0);
