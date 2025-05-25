@@ -1,6 +1,5 @@
 
 #include "salao.h"
-
 int proximoID = 1;
 
 Prato* criarPrato(int item, const char *cardapio[]) {
