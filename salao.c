@@ -124,9 +124,9 @@ void removerPedidoLista(Pedido **salao, int id) {
 
     //Nesse ponto vai ocorrer a remoção do pedido propriamente sendo considerado o caso do incio, meio e fim
     if (anterior == NULL) {
-        *salao = atual->proximo; //salao como a cabeça do no (remocao no incio)
+        *salao = atual->proximo; //
     } else {
-        anterior->proximo = atual->proximo; //remocao no meio e fim da lista
+        anterior->proximo = atual->proximo; 
     }
 
     /*Como da pedido tem uma lista de pratos, precisa-se remover (liberar memoria) para cada um, assim usamos um ponteiro auxiliar para percorrer a lista(p)
