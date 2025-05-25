@@ -42,7 +42,7 @@ void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[
         salao = salao->proximo;
 
     if (salao == NULL) {
-        printf("Pedido %d não encontrado.\n", id);
+        printf("Pedido %d nao encontrado.\n", id);
         return;
     }
 
@@ -58,7 +58,7 @@ void removerPedido(Pedido *salao, int id, int item) {
         salao = salao->proximo;
 
     if (salao == NULL) {
-        printf("Pedido %d não encontrado.\n", id);
+        printf("Pedido %d nao encontrado.\n", id);
         return;
     }
 
@@ -71,7 +71,7 @@ void removerPedido(Pedido *salao, int id, int item) {
     }
 
     if (atual == NULL) {
-        printf("Prato %d não encontrado no pedido %d.\n", item, id);
+        printf("Prato %d nao encontrado no pedido %d.\n", item, id);
         return;
     }
 
@@ -86,7 +86,7 @@ void removerPedido(Pedido *salao, int id, int item) {
 
 void listarPedidos(Pedido *salao) {
     if (salao == NULL) {
-        printf("Nenhum pedido no salão.\n");
+        printf("Nenhum pedido no salao.\n");
         return;
     }
 
@@ -103,7 +103,7 @@ void listarPedidos(Pedido *salao) {
 
 void removerPedidoLista(Pedido **salao, int id) {
     if (*salao == NULL) {
-        printf("Nenhum pedido no salão.\n");
+        printf("Nenhum pedido no salao.\n");
         return;
     }
 
@@ -118,7 +118,7 @@ void removerPedidoLista(Pedido **salao, int id) {
 
     //Se caso o id fornecido nao estiver na lista do salao é o caso de que o pedido nao foi feito (nao existe no salao)
     if (atual == NULL) {
-        printf("Pedido %d não encontrado.\n", id);
+        printf("Pedido %d nao encontrado.\n", id);
         return;
     }
 
@@ -140,5 +140,5 @@ void removerPedidoLista(Pedido **salao, int id) {
 
     //Nesse ponto, como os pratos já foram liberados, fazemos a liberação do pedido
     free(atual);
-    printf("Pedido %d removido do salão.\n", id);
+    printf("Pedido %d removido do salao.\n", id);
 }

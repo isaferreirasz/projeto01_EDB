@@ -3,16 +3,17 @@
 #include "salao.h"
 #include "cozinha.h"
 
-//Vetor com poteiro responsável por armazenar os nomes dos pratos do cardápio
+
+//Vetor com poteiro respons�vel por armazenar os nomes dos pratos do card�pio
 const char *cardapio[] = {
-    "Sopa de Cebola", "Salada Caesar", "Bruschetta", "Carpaccio de Carne", "Camarão ao Alho",
-"Lasanha à Bolonhesa", "Filé Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau à Gomes de Sá", "Risoto de Cogumelos",
+    "Sopa de Cebola", "Salada Caesar", "Bruschetta", "Carpaccio de Carne", "Camarao ao Alho",
+"Lasanha a Bolonhesa", "File Mignon com Fritas", "Frango Grelhado com Legumes", "Bacalhau a Gomes de Sa", "Risoto de Cogumelos",
 "Tiramisu", "Cheesecake de Frutas Vermelhas", "Mousse de Chocolate", "Pudim de Leite", "Sorvete de Baunilha com Calda de Morango"
 };
 
-//Utilizando o vetor implentamos a função, que usa uma estrutura de repetição para percorrer o vetor de moto a exibir os pratos em categorias
+//Utilizando o vetor implentamos a fun��o, que usa uma estrutura de repeti��o para percorrer o vetor de moto a exibir os pratos em categorias
 void listarCardapio() {
-    printf("\n=*=*= Cardápio =*=*=\n ==== Entradas ====\n");
+    printf("\n=*=*= Card�pio =*=*=\n ==== Entradas ====\n");
     for (int i = 0; i < 5; i++) printf("%2d. %s\n", i+1, cardapio[i]);
     printf("==== Pratos Principais ==== \n");
     for (int i = 5; i < 10; i++) printf("%2d. %s\n", i+1, cardapio[i]);
@@ -21,7 +22,6 @@ void listarCardapio() {
 }
 
 int main() {
-
     //Iniciando a lista de pedido com NULL (vazia)
     Pedido *salao = NULL;
     Fila filaCozinha;
@@ -29,17 +29,17 @@ int main() {
     
     int opcao;
 
-    /*Toda a estrutura do do while se utilizando do switch case foi implemntada para funcionar como um menu para o usuário, nela cada escolha
-    gera um "resultado" para quem usa, é uma implentação simples que chama as funçãoes anteriomente impletandas nos outros arquivos.c */
+    /*Toda a estrutura do do while se utilizando do switch case foi implemntada para funcionar como um menu para o usu�rio, nela cada escolha
+    gera um "resultado" para quem usa, � uma implenta��o simples que chama as fun��oes anteriomente impletandas nos outros arquivos.c */
     do {
         printf("\n==== GERENCIAMENTO DE PEDIDOS ====\n");
         printf("1. Adicionar pedido\n");
         printf("2. Adicionar prato a um pedido\n");
         printf("3. Remover prato de um pedido\n");
-        printf("4. Listar pedidos no salão\n");
+        printf("4. Listar pedidos no salao\n");
         printf("5. Enviar pedido para a cozinha\n");
-        printf("6. Listar Pedidos da Cozinha\n");
-        printf("7. Verificar qual pedido está pronto\n");
+        printf("6. Listar pedidos na cozinha\n");
+        printf("7. Verificar qual pedido esta pronto\n");
         printf("0. Sair\n");
         printf("Escolha a acao que deseja realizar: ");
         scanf("%d", &opcao);
@@ -52,7 +52,7 @@ int main() {
                 scanf("%d", &qtd);
 
                 if (qtd <= 0) {
-                    printf("Quantidade inválida.\n");
+                    printf("Quantidade invalida.\n");
                     break;
                 }
 
@@ -60,10 +60,10 @@ int main() {
                 int valido = 1;
 
                 for (int i = 0; i < qtd; i++) {
-                    printf("Digite o número do prato (1 a 15): ");
+                    printf("Digite o numero do prato (1 a 15): ");
                     scanf("%d", &itens[i]);
                     if (itens[i] < 1 || itens[i] > 15) {
-                        printf("Prato inválido.\n");
+                        printf("Prato invalido.\n");
                         valido = 0;
                         break;
                     }
@@ -79,12 +79,12 @@ int main() {
                 int id, item;
                 printf("ID do pedido: ");
                 scanf("%d", &id);
-                printf("Número do novo prato: ");
+                printf("Numero do novo prato: ");
                 scanf("%d", &item);
                 if (item >= 1 && item <= 15){
                     adicionarPratoPedido(salao, id, item, cardapio);
                 }else{
-                    printf("Prato inválido.\n");
+                    printf("Prato invalido.\n");
                 }
                 break;
             }
@@ -93,7 +93,7 @@ int main() {
                 int id, item;
                 printf("ID do pedido: ");
                 scanf("%d", &id);
-                printf("Número do prato a remover: ");
+                printf("Numero do prato a remover: ");
                 scanf("%d", &item);
                 removerPedido(salao, id, item);
                 break;
@@ -105,7 +105,7 @@ int main() {
 
             case 5: {
              int idPedido;
-             printf("Digite o ID do pedido para enviar à cozinha: ");
+             printf("Digite o ID do pedido para enviar a cozinha: ");
              scanf("%d", &idPedido);
              Pedido *pedidoNoSalao = salao;
                 while (pedidoNoSalao != NULL && pedidoNoSalao->id != idPedido) {
@@ -113,10 +113,10 @@ int main() {
                 }
     
                 if (pedidoNoSalao != NULL) {
-                adicionaPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos, cardapio);
+                adicionarPedidoCozinha(&filaCozinha, idPedido, pedidoNoSalao->pratos, cardapio);
                 removerPedidoLista(&salao, idPedido);
                 } else {
-                     printf("Pedido %d não encontrado no salão!\n", idPedido);
+                     printf("Pedido %d nao encontrado no salao!\n", idPedido);
                 }
                 break;
             }
@@ -134,7 +134,7 @@ int main() {
                 break;
 
             default:
-                printf("Opção inválida.\n");
+                printf("Op��o invalida.\n");
         }
 
     } while (opcao != 0);

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 //Estrutura para o prato, contendo o item (1a 15), o nome do prato e uma estrutura de ponteiro que aponta pra o proximo 
 typedef struct prato {
     int item;
