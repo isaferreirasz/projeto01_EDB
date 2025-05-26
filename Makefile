@@ -1,19 +1,19 @@
 all: main
 
-main: main.o salao.o cozinha.o
-	gcc -o main main.o salao.o cozinha.o 
+main: arquivos.c/main.o arquivos.c/salao.o arquivos.c/cozinha.o
+	gcc -o main arquivos.c/main.o arquivos.c/salao.o arquivos.c/cozinha.o
 
-main.o: main.c
-	gcc -c main.c
+arquivos.c/main.o: arquivos.c/main.c
+	gcc -c arquivos.c/main.c -o arquivos.c/main.o -Iarquivos.h
 
-salao.o: salao.c salao.h
-	gcc -c salao.c
+arquivos.c/salao.o: arquivos.c/salao.c arquivos.h/salao.h
+	gcc -c arquivos.c/salao.c -o arquivos.c/salao.o -Iarquivos.h
 
-cozinha.o: cozinha.c cozinha.h
-	gcc -c cozinha.c
+arquivos.c/cozinha.o: arquivos.c/cozinha.c arquivos.h/cozinha.h
+	gcc -c arquivos.c/cozinha.c -o arquivos.c/cozinha.o -Iarquivos.h
 
 test: main
 	./main
 
 clean:
-	rm -f main *.o 
+	rm -f main arquivos.c/*.o
