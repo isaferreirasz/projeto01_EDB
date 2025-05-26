@@ -38,7 +38,7 @@ int main() {
         printf("5. Enviar pedido para a cozinha\n");
         printf("6. Listar pedidos na cozinha\n");
         printf("7. Verificar qual pedido esta pronto\n");
-        printf("8. Remover pedido completo\n");
+        printf("8. Remover pedido completo do salao\n");
         printf("0. Sair\n");
         printf("Escolha a acao que deseja realizar: ");
         scanf("%d", &opcao);
@@ -136,7 +136,7 @@ int main() {
             }
             case 8: { 
                 int idPedido; //Variável pare receber o id do pedido para que possa fazer a remoção por completo
-                printf("Digite o ID do pedido que deseja remover por completo: ");
+                printf("Digite o ID do pedido que deseja remover por completo do salao: ");
                 scanf("%d", &idPedido);
                 removerPedidoLista(&salao, idPedido);
                 break;
