@@ -1,35 +1,38 @@
 
 #include "../arquivos.h/salao.h"
-int proximoID = 1;
+int proximoID = 1; //Criação da variavel global para que cada pedido tenha um ID unico e seja incrementado a cada pedido
 
+//Função para criar um prato
 Prato* criarPrato(int item, const char *cardapio[]) {
-    Prato *novo = (Prato*)malloc(sizeof(Prato));
-    novo->item = item;
-    strcpy(novo->nome, cardapio[item - 1]);
+    Prato *novo = (Prato*)malloc(sizeof(Prato)); //aqui temos a alocação dinamica na memoria para que o prato seja armazenado
+    novo->item = item; //serve para guardar o numero do prato
+    strcpy(novo->nome, cardapio[item - 1]); //faz uma copia do nome do prato do cardapio (vetor)
     novo->proximo = NULL;
     return novo;
 }
 
+//Função para criar um novo pedido
 void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[]) {
-  Pedido *novoPedido = (Pedido*)malloc(sizeof(Pedido));
-  novoPedido->id = proximoID++;
+  Pedido *novoPedido = (Pedido*)malloc(sizeof(Pedido)); ////aqui temos a alocação dinamica na memoria para que o prato seja armazenado
+  novoPedido->id = proximoID++; //atribuição do ID
   novoPedido->pratos = NULL;
   novoPedido->proximo = NULL;
 
+  //Essa estrutura de repetição com o laço i será percorrido o numero de vezes da quantidade de pratos do pedido, pois é desse modo que os pratos serão adicionados
   for (int i = 0; i < qtd; i++) {
-    Prato *novo = criarPrato(itens[i], cardapio);
+    Prato *novo = criarPrato(itens[i], cardapio); //faz a chamada da função criar pratos, rcebe o valor de entrada do usuario com a quantidade de pratos do pedido e recebe o cardapio
     novo->proximo = novoPedido->pratos;
     novoPedido->pratos = novo;
   }
 
-  if (*salao == NULL) {
+  if (*salao == NULL) { //Se a lista do salão estiver vazia, o novoPedido será o primeiro elemnento da lista
     *salao = novoPedido;
-  } else {
+  } else { //caso a lista não estiver vazia, vamos adicionar os pedidos no final lista
     Pedido *atual = *salao;
-    while (atual->proximo != NULL) {
+    while (atual->proximo != NULL) { //repetição que vai percorrendo a lsita até encontara o ultimo elemento
       atual = atual->proximo;
     }
-    atual->proximo = novoPedido;
+    atual->proximo = novoPedido; //adiciona no fim
   }
 
   printf("Pedido %d adicionado com %d prato(s).", novoPedido->id, qtd);
@@ -37,7 +40,7 @@ void adicionarPedido(Pedido **salao, int qtd, int itens[], const char *cardapio[
 
 void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[]) {
  
-    while (salao && salao->id != id)
+    while (salao && salao->id != id) //essa estrutura percorre a lista de pedidos até encontrar o pedido com o ID desejado
         salao = salao->proximo;
 
     if (salao == NULL) {
@@ -45,15 +48,16 @@ void adicionarPratoPedido(Pedido *salao, int id, int item, const char *cardapio[
         return;
     }
 
+    //Cria um novo prato chamando a função (recebe o numero do prato)
     Prato *novo = criarPrato(item, cardapio);
     novo->proximo = salao->pratos;
-    salao->pratos = novo;
+    salao->pratos = novo; //faz a inserção do prato no pedido
 
     printf("Prato adicionado ao pedido %d.\n", id);
 }
 
 void removerPedido(Pedido *salao, int id, int item) {
-    while (salao && salao->id != id)
+    while (salao && salao->id != id) //essa estrutura percorre a lista de pedidos até encontrar o pedido com o ID desejado
         salao = salao->proximo;
 
     if (salao == NULL) {
@@ -65,7 +69,7 @@ void removerPedido(Pedido *salao, int id, int item) {
     Prato *anterior = NULL;
 
     while (atual && atual->item != item) {
-        anterior = atual;
+        anterior = atual; //Essa esturura vai percorrer todos os pratos do pedido até encontrar o prato com item especificado
         atual = atual->proximo;
     }
 
@@ -75,24 +79,24 @@ void removerPedido(Pedido *salao, int id, int item) {
     }
 
     if (anterior)
-        anterior->proximo = atual->proximo;
+        anterior->proximo = atual->proximo; //se o anterior nao for igual a NULL, ela vai ser "ligado ao proximo prato" e o atual vai ser removido
     else
-        salao->pratos = atual->proximo;
+        salao->pratos = atual->proximo; //se o anterior for NULL, o prato era o primeiro da lista
 
-    free(atual);
+    free(atual);//liberacao da memoria don prato
     printf("Prato %d removido do pedido %d.\n", item, id);
 }
 
 void listarPedidos(Pedido *salao) {
     if (salao == NULL) {
         printf("Nenhum pedido no salao.\n");
-        return;
+        return; //se nao houver nenhum pedido
     }
 
-    while (salao) {
+    while (salao) { //o while externo percorre a lista dos pedidos
         printf("Pedido %d:\n", salao->id);
         Prato *p = salao->pratos;
-        while (p) {
+        while (p) {//o while interno percorre todos os pratos do pedido
             printf("  - [%d] %s\n", p->item, p->nome);
             p = p->proximo;
         }
