@@ -38,6 +38,7 @@ int main() {
         printf("5. Enviar pedido para a cozinha\n");
         printf("6. Listar pedidos na cozinha\n");
         printf("7. Verificar qual pedido esta pronto\n");
+        printf("8. Remover pedido completo\n");
         printf("0. Sair\n");
         printf("Escolha a acao que deseja realizar: ");
         scanf("%d", &opcao);
@@ -131,6 +132,13 @@ int main() {
             case 7: { //Na opção sete, mostramos qual pedido está saindo pronto da cozinha 
             //Chama a função de remover o pedido pronto da cozinha passando como parâmetro a fila da cozinha e o cardápio, assim removendo o primeiro elemento da fila
                 removerPedidoPronto(&filaCozinha, cardapio); 
+                break;
+            }
+            case 8: { 
+                int idPedido; //Variável pare receber o id do pedido para que possa fazer a remoção por completo
+                printf("Digite o ID do pedido que deseja remover por completo: ");
+                scanf("%d", &idPedido);
+                removerPedidoLista(&salao, idPedido);
                 break;
             }
 
