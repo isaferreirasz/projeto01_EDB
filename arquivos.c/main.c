@@ -134,11 +134,11 @@ int main() {
                 removerPedidoPronto(&filaCozinha, cardapio); 
                 break;
             }
-            case 8: { 
+            case 8: { //Na opção oito, removemos um pedido completo do salão 
                 int idPedido; //Variável pare receber o id do pedido para que possa fazer a remoção por completo
                 printf("Digite o ID do pedido que deseja remover por completo do salao: ");
                 scanf("%d", &idPedido);
-                removerPedidoLista(&salao, idPedido);
+                removerPedidoLista(&salao, idPedido);//Chama a função que remove o pedido passando como parâmetro a lista de pedidos e o id do pedido a ser removido 
                 break;
             }
 
